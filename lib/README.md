@@ -1,3 +1,3 @@
 # Lib
 
-For Libraries needed
+For External Libraries needed

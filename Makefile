@@ -10,6 +10,8 @@ PLATFORM ?= PLATFORM_DESKTOP
 # Build mode option
 BUILD_MODE ?= DEBUG
 
+STATIC_FILE ?= l$(PROJECT_NAME).a
+STATIC_INSTALL ?= build
 
 ifeq ($(PLATFORM),PLATFORM_DESKTOP)
 	ifeq ($(OS),Windows_NT)
@@ -21,11 +23,13 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
             PLATFORM_OS=LINUX
         endif
     endif
-endif	
+endif
 
 # Define default C compiler: gcc
 # NOTE: define g++ compiler if using C++
 CC = gcc
+
+AR := ar -rc
 
 # Make Program
 # Define default make program: Mingw32-make
@@ -87,6 +91,7 @@ OBJ_DIR = obj
 
 PROJECT_SOURCES = $(call rwildcard, $(SRC_DIR), *.c)
 OBJS = $(ENTRY_POINT) $(PROJECT_SOURCES)
+STATIC_OBS = $(PROJECT_SOURCES)
 
 # Uncommit for lib_src dir
 # LIB_SRC_DIR = lib_src
@@ -109,6 +114,13 @@ $(PROJECT_NAME): $(OBJS)
 #%.o: %.c
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDE_PATHS) -D$(PLATFORM)
+
+static:$(STATIC_OBS)
+	mkdir -p $(STATIC_INSTALL)
+	$(AR) $(STATIC_INSTALL)/$(STATIC_FILE) $(STATIC_OBS) 
+
+$(STATIC_FILE):$(STATIC_OBS)
+	$(CC) -o $(STATIC_INSTALL)/$(STATIC_FILE) $(STATIC_OBS) $(CFLAGS) $(INCLUDE_PATHS) -D$(PLATFORM)
 
 # Clean everything
 clean:

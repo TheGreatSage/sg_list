@@ -8,4 +8,11 @@
         "**/*.o": true,
         "**/*.exe": true,
     },
+    "files.associations": {
+        "tasks copy": "plaintext",
+        "array": "c",
+        "string_view": "c",
+        "type_traits": "c",
+        "stdbool.h": "c"
+    },
 }

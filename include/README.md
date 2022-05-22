@@ -1,3 +1,3 @@
 # Include
 
-For including files.
+For including external files.
