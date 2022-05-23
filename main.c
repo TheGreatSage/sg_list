@@ -10,10 +10,16 @@ struct ListTesting {
 
 static const int LIST_SIZE = 5;
 
-void pointer_tests(void);
-
+void list_tests(void);
 
 int main(void) {
+
+    list_tests();
+
+    return 0;
+}
+
+void list_tests(void) {
 
     printf("Starting List Tests\n");
    
@@ -29,7 +35,7 @@ int main(void) {
     struct sg_list *ptr;        // Loops
     
 
-    for (size_t i = 0; i < LIST_SIZE; i++) {
+    for (int i = 0; i < LIST_SIZE; i++) {
         sg_list_init(&lists[i].list);
         lists[i].id = i;
     }
@@ -183,5 +189,4 @@ int main(void) {
 	}
 
     printf("Passed the List Testing\n");
-    return 0;
 }

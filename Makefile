@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-PROJECT_NAME ?= test
+PROJECT_NAME ?= main
 
 # Compiler
 COMPILER_PATH ?= C:\msys64\mingw64\bin
@@ -45,7 +45,7 @@ MAKE = mingw32-make
 #  -std=gnu99           defines C language mode (GNU C from 1999 revision)
 #  -Wno-missing-braces  ignore invalid warning (GCC bug 53119)
 #  -D_DEFAULT_SOURCE    use with -std=c99 on Linux and PLATFORM_WEB, required for timespec
-CFLAGS += -Wall -Wextra -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Wno-sign-compare -Wno-maybe-uninitialized
+CFLAGS += -Wall -Wextra -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces
 
 
 # Define include paths for required headers
@@ -93,14 +93,6 @@ PROJECT_SOURCES = $(call rwildcard, $(SRC_DIR), *.c)
 OBJS = $(ENTRY_POINT) $(PROJECT_SOURCES)
 STATIC_OBS = $(PROJECT_SOURCES)
 
-# Uncommit for lib_src dir
-# LIB_SRC_DIR = lib_src
-# rwildcard2=$(foreach d,$(wildcard $1*),$(call rwildcard2,$d/,$2) $(filter $(subst *,%,$2),$d))
-# LIB_SOURCES = $(call rwildcard2, $(LIB_SRC_DIR), *.c)
-# OBJS = $(ENTRY_POINT) $(PROJECT_SOURCES) $(LIB_SOURCES)
-
-# export PROJECT_NAME
-# export SRC_DIR
 
 all:
 	$(MAKE) $(PROJECT_NAME)
